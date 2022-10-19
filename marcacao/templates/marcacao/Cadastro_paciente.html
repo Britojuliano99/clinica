@@ -1,0 +1,16 @@
+{% extends "marcacao/index.html" %}
+
+{% block main %}
+{% load crispy_forms_tags %}
+<p>Formularios referentes ao cadastro de pacientes da sua clinica </p>
+
+<form method="post" action=" ">
+    {% csrf_token %}
+    {{form|crispy}}
+    <button type=" submit" , name="salvar"> Cadastrar Paciente</button>
+</form>
+
+{% endblock %}
+
+{% block login %}
+{% endblock%}

@@ -1,0 +1,39 @@
+{% extends "marcacao/index.html" %}
+{% block main %}
+{% load crispy_forms_tags %}
+    <p>Cadastro de sessoes </p>
+
+    <form method="post" action=" ",name= salvar>
+        {% csrf_token %}
+        {{form|crispy}}
+        <button type=" submit" , name="salvar"> Cadastrar sessão</button>
+    </form>
+
+    <div>
+    
+        
+        
+    </div>
+    <ul>
+        {% for dia in dias %}
+            <p> Consulta no {{dia|date}}</p>
+                {% for consulta in consultas%}
+                    {% if consulta.dia == dia  %}
+                     
+                    <li> Consulta das {{consulta.horario}} --{{consulta.paciente}}- com a profissional {{consulta.paciente.profissional}} na sala {{consulta.sala}} 
+                        <form method="post" action="" style=display:inline>
+                        {% csrf_token %}
+                        <button name= apagar type= submit value={{consulta.id}} > x </button>
+                        </form>
+                        <form method="post" action="/Consultas/editar/{{consulta.id}}">
+                            {% csrf_token %}
+                            <button  type= submit > Editar </button>
+                        </form>
+                    </li>
+                    {%endif%}
+                {% endfor %}
+        {%endfor%}
+    </ul>
+
+{% endblock%}
+{% block login %}{% endblock%}

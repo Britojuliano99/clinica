@@ -1,0 +1,60 @@
+<html>
+<head>
+<title>Mental-system</title>
+</head>
+<body>
+    <style type="text/css">
+        .sidenav{
+            height: 100%;
+            width: 15%;
+            position: fixed;
+            z-index: 1;
+            top:0;
+            left:0;
+            background-color: greenyellow;
+            overflow-x: hidden;
+            padding-top: 20px;
+
+        }
+
+        .sidenav a {
+            padding: 6px 8px 6px 16px ;
+            text-decoration: none;
+            font: black;
+            display: block;
+
+        }
+        .main {
+            margin-left:15%;
+            padding: 0px 10px;
+
+        }
+
+    </style>
+    <div class ="sidenav">
+        <a href="/"> Home</a>
+        <a href="/login/"> Log In</a>
+        <a href="/Cadastro_paciente"> Cadastro Paciente</a>
+        <a href="/Cadastro_sessoes/"> Cadastro de sessões</a>
+        <a href="/Consultas/"> Consultas cadastradas</a>
+    
+    </div>
+
+    <div id="conteudo", class="main">
+        <h1>Mental-system</h1>
+        <h2>Mental system é um sistema de gestão integrada para clinicas de saúde mental na qual o cliente pode ter total controle de sua clinica</h2>
+        
+        {% block main %}
+
+        {% endblock %}
+        
+        
+        
+        
+    </div>
+    <div class="main">
+        <p>Login<a href="/login/"> Aqui </a></p></div>
+</body>
+
+
+</html>

@@ -1,0 +1,32 @@
+{% extends "marcacao/index.html" %}
+
+{% block main %}
+<p> Sessões cadastrada</p>
+<form method="get" action="{{dia}}{{sala}}">
+    
+    <input name="dia" type="date",value={{dia_selecionado}}>
+    <i>Numero da sala</i>
+    <input name="sala" type="number",>
+    <button type= submit> x</button>
+</form>
+    <p> Sessões cadastrada</p>
+{% for dia in dias %}
+<p> Consulta no {{dia|date}}</p>
+    {% for consulta in consultas%}
+        {% if consulta.dia == dia%}
+        
+        <li> Consulta das {{consulta.horario}} --{{consulta.paciente}}- com a profissional {{consulta.paciente.profissional}} na sala {{consulta.sala}} 
+            <form method="post" action="" style=display:inline>
+            {% csrf_token %}
+            <button name= apagar type= submit value={{consulta.id}} > x </button>
+            </form>
+            <form method="post" action="/Consultas/editar/{{consulta.id}}">
+                {% csrf_token %}
+                <button  type= submit > Editar </button>
+            </form>
+        </li>
+        {%endif%}
+    {% endfor %}
+{%endfor%}
+</ul>
+{% endblock %}
