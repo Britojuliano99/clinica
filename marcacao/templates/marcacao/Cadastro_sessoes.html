@@ -2,17 +2,12 @@
 {% block main %}
 {% load crispy_forms_tags %}
     <p>Cadastro de sessoes </p>
-
+    <div class="formulario">
     <form method="post" action=" ",name= salvar>
         {% csrf_token %}
         {{form|crispy}}
-        <button type=" submit" , name="salvar"> Cadastrar sessão</button>
+        <button type=" submit" , name="salvar" class="formularioC"> Cadastrar sessão</button>
     </form>
-
-    <div>
-    
-        
-        
     </div>
     <ul>
         {% for dia in dias %}

@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .forms import CriarConsulta, CriarPaciente
-from .models import Consulta
+from .models import Consulta, Profissional
 from django.views.generic.edit import UpdateView
 from django.urls import reverse_lazy
+from django.db.models import Q
 import datetime 
 
 # Create your views here.
@@ -45,43 +46,33 @@ def ver_consultas(request):
     try:
         dia_selecionado=request.GET['dia']
         sala_selecionada=request.GET['sala']
+        profissional_selecionado=request.GET['profissional']
+        print("pegou")
     except:
         dia_selecionado=""
         sala_selecionada=""
-    
+        profissional_selecionado=""
+        print('não pegou')
     try:
-        consultas=Consulta.objects.filter(dia=f"{dia_selecionado}",sala=sala_selecionada)
+        consultas=Consulta.objects.filter(Q(dia =f"{dia_selecionado}") & Q(sala=sala_selecionada) & Q(paciente__profissional__nome=f"{profissional_selecionado}"))
         dias=[datetime.datetime.strptime(dia_selecionado,'%Y-%m-%d').date()]
-        print(dias)
+        profissionais=Profissional.objects.all()
+        print("filtrando")
     except:
         consultas=Consulta.objects.all()
         dias=Consulta.objects.dates("dia","day")
-
+        profissionais=Profissional.objects.all()
+        print("sem filtro")
     if request.method == "POST":
         id=request.POST["apagar"]
         Apagar=Consulta.objects.get(id=id)
         Apagar.delete()
-    #else:
-        #pass
     
-    return render(request,"marcacao/consultas.html",{'consultas':consultas,"dias":dias,"dia_selecionado":dia_selecionado})
+    
+    return render(request,"marcacao/consultas.html",{'consultas':consultas,"dias":dias,"dia_selecionado":dia_selecionado,"profissionais":profissionais})
 
-def ver_consultas_dia(request):
-    consultas=Consulta.objects.all()
-    dias=Consulta.objects.dia
-    dia_selecionado=request.GET.get
-    
-    if request.method == "POST":
-        id=request.POST["apagar"]
-        Apagar=Consulta.objects.get(id=id)
-        print(id)
-        Apagar.delete()
-    if request.method=="GET":
-        dia_selecionado=request.GET['dia_selecionado']
-        print(dia_selecionado)
-    
-    return render(request,"marcacao/consultas_dia.html",{'consultas':consultas,"dias":dias,"dia_selecionado":dia_selecionado})
-    
+
+
 class update_consulta(UpdateView):
     model=Consulta
     fields=['situação']
