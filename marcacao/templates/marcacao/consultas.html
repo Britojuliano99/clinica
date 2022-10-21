@@ -31,8 +31,13 @@
                 <button  type= submit > Editar </button>
             </form>
         </li>
+        
         {%endif%}
+        {% empty %}
+        <li> Nenhum sessão para esse dia com esse profissional</li>
     {% endfor %}
+    {%empty%}
+    <li></li>
 {%endfor%}
 </ul>
 {% endblock %}
