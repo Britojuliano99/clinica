@@ -10,8 +10,9 @@ import datetime
 # Create your views here.
 
 
-def home(response):
-    return render(response, "marcacao/index.html")
+def home(request):
+    print(request.user.is_authenticated)
+    return render(request, "marcacao/index.html",{"user":request.user})
 
 
 def cadastro_paciente(request):

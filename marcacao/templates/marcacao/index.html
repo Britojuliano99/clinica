@@ -33,11 +33,15 @@
     </style>
     <div class ="sidenav">
         <a href="/"> Home</a>
-        <a href="/login/"> Log In</a>
-        <a href="/Cadastro_paciente"> Cadastro Paciente</a>
-        <a href="/Cadastro_sessoes/"> Cadastro de sessões</a>
-        <a href="/Consultas/"> Consultas cadastradas</a>
-    
+        
+        {% if user.is_authenticated == True %}
+            <a href="/Cadastro_paciente"> Cadastro Paciente</a>
+            <a href="/Cadastro_sessoes/"> Cadastro de sessões</a>
+            <a href="/Consultas/"> Consultas cadastradas</a>
+            <a href="/logout/">Logout</a>
+        {%else%}
+            <a href="/login/"> Log In</a>
+        {% endif %}
     </div>
 
     <div id="conteudo", class="main">
@@ -53,7 +57,10 @@
         
     </div>
     <div class="main">
-        <p>Login<a href="/login/"> Aqui </a></p></div>
+        {% block login%}
+            <p>Login<a href="/login/"> Aqui </a></p>
+        {% endblock %}
+    </div>
 </body>
 
 
